@@ -1,0 +1,16 @@
+double_sneak_cast:
+    spell-class: ".PassiveSpell"
+    triggers:
+        - startsneak #just starting a passive
+    modifiers:
+        - buffactive double_sneak_cast_buff castinstead YOUR_SPELL(mode=FULL) # casting spell when buff is active. buff = first sneak, buff + sneak = second sneak
+    spells:
+        - double_sneak_cast_buff # casting buff when sneaks firstly
+double_sneak_cast_buff: # just buff for first sneak detection
+    spell-class: ".buff.DummySpell"
+    helper-spell: true
+    toggle: false
+    duration: 0.2
+YOUR_SPELL: # your spell for casting
+    spell-class: ".instant.DummySpell"
+    str-cast-self: "&e&l[DEBUG] &7&lDouble Sneak c:!"
