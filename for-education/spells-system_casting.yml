@@ -1,0 +1,181 @@
+#######################
+# CASTING SYSTEM      #
+# v 1.0               #
+# made by iamDvz#2005 #
+#######################
+#~~~~~~~~~~~~~~~~~~~~
+# put your combinations in 42 line for use (38 for availability checking)
+# put your message in 114 line
+# line 71 for combination duration (you can end it on F)
+# 58 & 131 & 153 for start items. Enjoy :^) <3
+#~~~~~~~~~~~~~~~~~~~~
+dummy:
+    spell-class: ".instant.DummySpell"
+    helper-spell: true
+action_sound:
+    spell-class: ".instant.DummySpell"
+    helper-spell: true
+    effects:
+      1_1:
+        position: caster
+        effect: soundpersonal
+        sound: ui.button.click
+        volume: 1
+        pitch: 1.5
+action_bar_null:
+    spell-class: ".instant.DummySpell"
+    helper-spell: true
+    effects:
+      1_1:
+        position: caster
+        effect: actionbartext
+        message: ""
+        broadcast: false
+#
+modifiers:
+    is_any_skill:
+        checks:
+            - variablestringequals casting_combination_str:R-L-L required
+        pass-condition: ANY
+    cast_skill:
+        checks:
+            - variablestringequals casting_combination_str:R-L-L cast cast_skill_ext(args=["skill_some_1"])
+        pass-condition: ALL
+cast_skill_ext:
+    spell-class: ".ExternalCommandSpell"
+    helper-spell: true
+    do-variable-replacement: true
+    command-to-execute: ["cast %arg:1:1%"]
+skill_some_1:
+    spell-class: ".instant.DummySpell"
+    str-cast-self: "&e&l[DEBUG] &aTEST SKILL 1!"
+variables:
+    casting_combination_str: {type: playerstring, permanent: false}
+####
+casting_start:
+    spell-class: ".PassiveSpell"
+    triggers:
+        - rightclickitem wooden_sword | stick
+    modifiers:
+        - buffactive is_player_casting denied
+    #cooldown: 1
+    spells:
+        - action_sound
+        - is_player_casting
+        - casting_start_musp
+        - casting_start_dummy(mode=FULL)
+is_player_casting:
+    spell-class: ".buff.DummySpell"
+    helper-spell: true
+    toggle: false
+    duration: 1.5
+    effects:
+      1_1:
+        position: buff
+        effect: actionbartext
+        message: "&a&l%var:casting_combination_str%"
+        broadcast: false
+        effect-interval: 01
+      1_2:
+        position: buff
+        effect: particles
+        particle-name: crit
+        horiz-spread: 0
+        vert-spread: 0
+        speed: 0.7
+        count: 5
+        height-offset: 1
+        forward-offset: 0.5
+        effect-interval: 05
+is_player_casting_cleanse:
+    spell-class: ".targeted.CleanseSpell"
+    helper-spell: true
+    target-self: true
+    remove:
+        - buff:is_player_casting
+casting_start_musp:
+    spell-class: ".MultiSpell"
+    helper-spell: true
+    modifiers:
+        - "!buffactive is_player_casting castinstead casting_start_musp_checker(mode=FULL)"
+    spells:
+        - DELAY 02
+        - casting_start_musp(mode=FULL)
+casting_start_musp_checker:
+    spell-class: ".instant.DummySpell"
+    helper-spell: true
+    modifiers:
+        - collection cast_skill continue
+        - always cast action_bar_null(delay=02)
+        - "!collection is_any_skill cast casting_start_musp_checker_noskill(mode=FULL)"
+casting_start_musp_checker_noskill:
+    spell-class: ".instant.DummySpell"
+    helper-spell: true
+    str-cast-self: "&7&oyou don't know (%var:casting_combination_str%)"
+casting_start_dummy:
+    spell-class: ".instant.DummySpell"
+    helper-spell: true
+    modifiers:
+        - "!sneaking string casting_combination_str R"
+        - sneaking string casting_combination_str SR
+casting_start_dummy_bow:
+    spell-class: ".instant.DummySpell"
+    helper-spell: true
+    modifiers:
+        - "!sneaking string casting_combination_str L"
+        - sneaking string casting_combination_str SL
+#
+casting_R:
+    spell-class: ".PassiveSpell"
+    triggers:
+        - rightclickitem wooden_sword | stick
+    modifiers:
+        - buffactive is_player_casting required
+    spells:
+        - action_sound
+        - casting_R_dummy
+casting_R_dummy:
+    spell-class: ".instant.DummySpell"
+    helper-spell: true
+    modifiers:
+        - sneaking castinstead casting_R_dummy_sneaking
+    variable-mods-cast:
+        - casting_combination_str +-R
+casting_R_dummy_sneaking:
+    spell-class: ".instant.DummySpell"
+    helper-spell: true
+    variable-mods-cast:
+        - casting_combination_str +-SR
+#
+casting_L:
+    spell-class: ".PassiveSpell"
+    triggers:
+        - leftclickitem wooden_sword | stick
+    modifiers:
+        - buffactive is_player_casting required
+    spells:
+        - action_sound
+        - casting_L_dummy
+casting_L_dummy:
+    spell-class: ".instant.DummySpell"
+    helper-spell: true
+    modifiers:
+        - sneaking castinstead casting_L_dummy_sneaking
+    variable-mods-cast:
+        - casting_combination_str +-L
+casting_L_dummy_sneaking:
+    spell-class: ".instant.DummySpell"
+    helper-spell: true
+    variable-mods-cast:
+        - casting_combination_str +-SL
+#
+casting_offhandswap:
+    spell-class: ".PassiveSpell"
+    always-granted: true
+    triggers:
+        - offhandswap
+    modifiers:
+        - buffactive is_player_casting cast is_player_casting_cleanse
+    cancel-default-action: true
+    spells:
+        - dummy
