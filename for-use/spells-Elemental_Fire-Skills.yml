@@ -1,0 +1,453 @@
+# made by @iamDvz#2005
+# СТРОКИ/ROWS 56, 167, 311 ОТКАТ / COOLDOWNS
+# СТРОКИ/ROWS 161, 293, 444 УРОН / DAMAGE
+# СТРОКИ/ROWS 58, 169, 313 ПОТРЕБЛЕНИЕ МАНЫ / COST OF MANA
+# СТРОКА/ROW 322 ДЛИТЕЛЬНОСТЬ СТЕНЫ / FLAME WALL DURATION
+#
+#
+#
+#
+#
+#
+fire_effect:
+    spell-class: ".targeted.DummySpell"
+    helper-spell: true
+    effects:
+      1_1:
+        position: target
+        effect: particles
+        particle-name: flame
+        horiz-spread: 0.6
+        vert-spread: 0.6
+        speed: 0.12
+        count: 7
+        height-offset: 1
+      1_2:
+        position: target
+        effect: particles
+        particle-name: dust
+        horiz-spread: 0.6
+        vert-spread: 0.6
+        speed: 0
+        count: 7
+        height-offset: 1
+      1_3:
+        position: target
+        effect: particles
+        particle-name: smoke
+        horiz-spread: 0.6
+        vert-spread: 0.6
+        speed: 0.15
+        count: 7
+        height-offset: 1
+      1_4:
+        position: target
+        effect: particles
+        particle-name: poof
+        horiz-spread: 0.6
+        vert-spread: 0.6
+        speed: 0.2
+        count: 1
+        height-offset: 1
+### ~~ ###
+fireball:
+    spell-class: ".MultiSpell"
+    cast-item: magma_cream
+    cooldown: 1
+    cost:
+        - mana 10
+    spells:
+        - fireball_leap
+        - fireball_ppj
+fireball_leap:
+    spell-class: ".instant.LeapSpell"
+    helper-spell: true
+    forward-velocity: -3
+    upward-velocity: 1
+fireball_ppj:
+    spell-class: ".instant.ParticleProjectileSpell"
+    helper-spell: true
+    relative-offset: 1,1,0
+    projectile-velocity: 30
+    projectile-vert-offset: 0
+    projectile-horiz-offset: 0
+    projectile-gravity: 0
+    projectile-spread: 0
+    tick-interval: 1
+    spell-interval: 1
+    special-effect-interval: 1
+    particle-name: blockcrack_0_0
+    max-distance: 35
+    hit-ground: true
+    hit-players: true
+    hit-non-players: true
+    hit-air-during: false
+    hit-air-at-end: false
+    hit-radius: 1.2
+    stop-on-hit-entity: true
+    stop-on-hit-ground: true
+    spell-on-hit-entity: fireball_ppj_tmusp
+    spell: dummy
+    effects:
+      1_1:
+        position: special
+        effect: particles
+        particle-name: flame
+        horiz-spread: 1
+        vert-spread: 1
+        speed: 0.1
+        count: 5
+      1_2:
+        position: special
+        effect: particles
+        particle-name: dust
+        horiz-spread: 1
+        vert-spread: 1
+        speed: 0
+        count: 15
+      1_3:
+        position: special
+        effect: particles
+        particle-name: smoke
+        horiz-spread: 1
+        vert-spread: 1
+        speed: 0.1
+        count: 4
+      1_4:
+        position: special
+        effect: particles
+        particle-name: flash
+        horiz-spread: 1
+        vert-spread: 1
+        speed: 0
+        count: 1
+        chance: 15
+      1_5:
+        position: special
+        effect: sound
+        sound: item.firecharge.use
+        pitch: 0.5
+        volume: 2
+        chance: 15
+      1_6:
+        position: special
+        effect: sound
+        sound: item.firecharge.use
+        pitch: 1.5
+        volume: 2
+        chance: 15
+      1_7:
+        position: caster
+        effect: sound
+        sound: entity.wither.shoot
+        pitch: 1.2
+        volume: 2
+fireball_ppj_tmusp:
+    spell-class: ".TargetedMultiSpell"
+    helper-spell: true
+    require-entity-target: true
+    spells:
+        - fire_effect
+        - fireball_ppj_tmusp_pain
+        - DELAY 20
+        - fire_effect
+        - fireball_ppj_tmusp_pain
+        - DELAY 20
+        - fire_effect
+        - fireball_ppj_tmusp_pain
+fireball_ppj_tmusp_pain:
+    spell-class: ".targeted.PainSpell"
+    helper-spell: true
+    damage: 3
+    ignore-armor: true
+### ~~ ###
+firewave:
+    spell-class: ".MultiSpell"
+    cast-item: magma_cream
+    cooldown: 1
+    cost:
+        - mana 10
+    spells:
+        - firewave_leap_1
+        - DELAY 05
+        - firewave_leap_2
+        - firewave_ppj_1
+        - firewave_ppj_2
+        - firewave_ppj_3
+        - firewave_ppj_4
+        - firewave_ppj_5
+        - firewave_ppj_6
+        - firewave_ppj_7
+        - firewave_ppj_8
+        - firewave_ppj_9
+        - firewave_ppj_10
+        - firewave_ppj_11
+        - firewave_ppj_12
+    effects:
+      1_1:
+        position: caster
+        effect: sound
+        sound: entity.wither.shoot
+        pitch: 1.2
+        volume: 2
+        delay: 05
+firewave_leap_1:
+    spell-class: ".instant.LeapSpell"
+    helper-spell: true
+    forward-velocity: 1
+    upward-velocity: 4
+firewave_leap_2:
+    spell-class: ".instant.LeapSpell"
+    helper-spell: true
+    forward-velocity: 1
+    upward-velocity: -4
+firewave_ppj_base: &firewave_ppj_base_copy
+    spell-class: ".instant.ParticleProjectileSpell"
+    helper-spell: true
+    relative-offset: 0,0,0
+    projectile-velocity: 30
+    projectile-vert-offset: 0
+    projectile-horiz-offset: 0
+    projectile-gravity: 0
+    projectile-spread: 0
+    tick-interval: 1
+    spell-interval: 1
+    special-effect-interval: 1
+    particle-name: blockcrack_0_0
+    max-distance: 12
+    hit-ground: true
+    hit-players: true
+    hit-non-players: true
+    hit-air-during: false
+    hit-air-at-end: false
+    hit-radius: 2.2
+    hug-surface: true
+    stop-on-hit-entity: false
+    stop-on-hit-ground: true
+    spell-on-hit-entity: firewave_ppj_base_tmusp
+    spell: dummy
+    effects:
+      1_1:
+        position: special
+        effect: particles
+        particle-name: flame
+        horiz-spread: 1
+        vert-spread: 1
+        speed: 0.1
+        count: 2
+      1_2:
+        position: special
+        effect: particles
+        particle-name: dust
+        horiz-spread: 1
+        vert-spread: 1
+        speed: 0
+        count: 5
+      1_3:
+        position: special
+        effect: particles
+        particle-name: smoke
+        horiz-spread: 1
+        vert-spread: 1
+        speed: 0.1
+        count: 2
+      1_4:
+        position: special
+        effect: particles
+        particle-name: flash
+        horiz-spread: 1
+        vert-spread: 1
+        speed: 0
+        count: 1
+        chance: 2
+      1_5:
+        position: special
+        effect: sound
+        sound: item.firecharge.use
+        pitch: 0.5
+        volume: 2
+        chance: 2
+      1_6:
+        position: special
+        effect: sound
+        sound: item.firecharge.use
+        pitch: 1.5
+        volume: 2
+        chance: 2
+firewave_ppj_base_tmusp:
+    spell-class: ".TargetedMultiSpell"
+    helper-spell: true
+    require-entity-target: true
+    spells:
+        - fire_effect
+        - firewave_ppj_base_tmusp_pain
+        - DELAY 20
+        - fire_effect
+        - firewave_ppj_base_tmusp_pain
+        - DELAY 20
+        - fire_effect
+        - firewave_ppj_base_tmusp_pain
+firewave_ppj_base_tmusp_pain:
+    spell-class: ".targeted.PainSpell"
+    helper-spell: true
+    damage: 1
+    ignore-armor: true
+firewave_ppj_1: {<<: *firewave_ppj_base_copy, projectile-horiz-offset: 0}
+firewave_ppj_2: {<<: *firewave_ppj_base_copy, projectile-horiz-offset: 30}
+firewave_ppj_3: {<<: *firewave_ppj_base_copy, projectile-horiz-offset: 60}
+firewave_ppj_4: {<<: *firewave_ppj_base_copy, projectile-horiz-offset: 90}
+firewave_ppj_5: {<<: *firewave_ppj_base_copy, projectile-horiz-offset: 120}
+firewave_ppj_6: {<<: *firewave_ppj_base_copy, projectile-horiz-offset: 150}
+firewave_ppj_7: {<<: *firewave_ppj_base_copy, projectile-horiz-offset: 180}
+firewave_ppj_8: {<<: *firewave_ppj_base_copy, projectile-horiz-offset: 210}
+firewave_ppj_9: {<<: *firewave_ppj_base_copy, projectile-horiz-offset: 240}
+firewave_ppj_10: {<<: *firewave_ppj_base_copy, projectile-horiz-offset: 270}
+firewave_ppj_11: {<<: *firewave_ppj_base_copy, projectile-horiz-offset: 300}
+firewave_ppj_12: {<<: *firewave_ppj_base_copy, projectile-horiz-offset: 330}
+### ~~ ###
+firewall:
+    spell-class: ".MultiSpell"
+    cast-item: magma_cream
+    cooldown: 1
+    cost:
+        - mana 10
+    spells:
+        - firewall_leap
+        - firewall_buff
+        - DELAY 01
+        - firewall_ppj
+    effects:
+      1_1:
+        position: caster
+        effect: sound
+        sound: entity.wither.shoot
+        pitch: 1.2
+        volume: 2
+        delay: 05
+firewall_buff:
+    spell-class: ".buff.DummySpell"
+    helper-spell: true
+    duration: 5
+    toggle: false
+firewall_ppj:
+    spell-class: ".instant.ParticleProjectileSpell"
+    helper-spell: true
+    relative-offset: -2,0,8
+    projectile-velocity: 15
+    projectile-vert-offset: 0
+    projectile-horiz-offset: 0
+    projectile-turn: -5.1
+    projectile-gravity: 0
+    projectile-spread: 0
+    tick-interval: 1
+    spell-interval: 3
+    special-effect-interval: 1
+    particle-name: blockcrack_0_0
+    max-distance: 100
+    max-duration: 1.74
+    hit-ground: false
+    hit-players: false
+    hit-non-players: false
+    hit-air-during: true
+    hit-air-at-end: false
+    hit-radius: 2.2
+    hug-surface: true
+    stop-on-hit-entity: false
+    stop-on-hit-ground: false
+    spell-on-tick: firewall_ppj_tmusp
+    spell: dummy
+firewall_ppj_tmusp:
+    spell-class: ".TargetedMultiSpell"
+    helper-spell: true
+    modifiers:
+        - buffactive firewall_buff required
+    stop-on-fail: false
+    spells:
+        - firewall_ppj_tmusp_fbomb
+        - firewall_ppj_tmusp_ppj
+        - DELAY 12
+        - firewall_ppj_tmusp
+firewall_ppj_tmusp_fbomb:
+    spell-class: ".targeted.ForcebombSpell"
+    helper-spell: true
+    radius: 3
+    pushback-force: 5
+    additional-vertical-force: 5
+    max-vertical-force: 12
+    y-offset: 1
+firewall_ppj_tmusp_ppj:
+    spell-class: ".instant.ParticleProjectileSpell"
+    helper-spell: true
+    relative-offset: 0,-1,0
+    projectile-velocity: 15
+    projectile-vert-offset: 999
+    projectile-horiz-offset: 0
+    projectile-gravity: 0
+    projectile-spread: 0
+    tick-interval: 1
+    spell-interval: 1
+    special-effect-interval: 1
+    particle-name: blockcrack_0_0
+    max-distance: 7
+    hit-ground: true
+    hit-players: true
+    hit-non-players: true
+    hit-air-during: false
+    hit-air-at-end: false
+    hit-radius: 2
+    stop-on-hit-entity: false
+    stop-on-hit-ground: true
+    change-pitch: false
+    spell-on-hit-entity: firewall_ppj_tmusp_ppj_tmusp
+    spell: dummy
+    effects:
+      1_1:
+        position: special
+        effect: particles
+        particle-name: flame
+        horiz-spread: 0.6
+        vert-spread: 0.6
+        speed: 0.1
+        count: 2
+      1_2:
+        position: special
+        effect: particles
+        particle-name: dust
+        horiz-spread: 0.6
+        vert-spread: 0.6
+        speed: 0
+        count: 5
+      1_3:
+        position: special
+        effect: particles
+        particle-name: smoke
+        horiz-spread: 0.6
+        vert-spread: 0.6
+        speed: 0.1
+        count: 2
+      1_5:
+        position: special
+        effect: sound
+        sound: item.firecharge.use
+        pitch: 0.5
+        volume: 2
+        chance: 2
+      1_6:
+        position: special
+        effect: sound
+        sound: item.firecharge.use
+        pitch: 1.5
+        volume: 2
+        chance: 2
+firewall_ppj_tmusp_ppj_tmusp:
+    spell-class: ".TargetedMultiSpell"
+    helper-spell: true
+    require-entity-target: true
+    spells:
+        - fire_effect
+        - firewall_ppj_tmusp_ppj_tmusp_pain
+firewall_ppj_tmusp_ppj_tmusp_pain:
+    spell-class: ".targeted.PainSpell"
+    helper-spell: true
+    damage: 1
+    ignore-armor: true
