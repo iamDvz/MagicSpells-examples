@@ -1,0 +1,481 @@
+# made by @iamDvz#2005
+# СТРОКИ/ROWS 15, 124, 482 ОТКАТ / COOLDOWNS
+# СТРОКИ/ROWS 117, 292, 456 УРОН / DAMAGE
+# СТРОКИ/ROWS 17, 131, 385 ПОТРЕБЛЕНИЕ МАНЫ / COST OF MANA
+# 
+#
+#
+#
+#
+#
+#
+airtornado:
+    spell-class: ".MultiSpell"
+    cast-item: magma_cream
+    cooldown: 1
+    cost:
+        - mana 10
+    spells:
+        - airtornado_leap
+        - airtornado_ppj
+    effects:
+      1_1:
+        position: caster
+        effect: sound
+        sound: entity.wither.shoot
+        pitch: 1.2
+        volume: 2
+airtornado_leap:
+    spell-class: ".instant.LeapSpell"
+    helper-spell: true
+    forward-velocity: -3
+    upward-velocity: 1
+airtornado_ppj:
+    spell-class: ".instant.ParticleProjectileSpell"
+    helper-spell: true
+    relative-offset: 1,1,0
+    projectile-velocity: 15
+    projectile-vert-offset: 0
+    projectile-horiz-offset: 0
+    projectile-gravity: 0
+    projectile-spread: 0
+    tick-interval: 1
+    spell-interval: 3
+    special-effect-interval: 5
+    particle-name: blockcrack_0_0
+    max-distance: 25
+    hit-ground: true
+    hit-players: true
+    hit-non-players: true
+    hit-air-during: true
+    hit-air-at-end: false
+    hit-radius: 3
+    hug-surface: true
+    stop-on-hit-entity: false
+    stop-on-hit-ground: true
+    spell-on-tick: airtornado_ppj_fbomb
+    spell-on-hit-entity: airtornado_ppj_pain
+    spell: dummy
+    effects:
+      1_1:
+        position: special
+        effect: particles
+        particle-name: sweep_attack
+        horiz-spread: 1
+        vert-spread: 1
+        speed: 0
+        count: 1
+        height-offset: 1
+      1_2:
+        position: special
+        effect: particles
+        particle-name: poof
+        horiz-spread: 1
+        vert-spread: 1
+        speed: 0.15
+        count: 3
+        height-offset: 1
+      1_3:
+        position: special
+        effect: particles
+        particle-name: effect
+        horiz-spread: 1
+        vert-spread: 1
+        speed: 0
+        count: 2
+        height-offset: 1
+      1_4:
+        position: special
+        effect: particles
+        particle-name: white_ash
+        horiz-spread: 1
+        vert-spread: 1
+        speed: 10
+        count: 12
+        height-offset: 1
+      1_5:
+        position: special
+        effect: effectlib
+        effectlib:
+            class: Equation
+            particle: redstone
+            colors: ffffff
+            speed: 0
+            relativeOffset: 0,0,0
+            offset: 0,-0.2,0
+            duration: 500
+            xEquation: 2.35sin(0.25t)*0.01t
+            yEquation: 0.05t
+            zEquation: 2.35cos(0.25t)*0.01t
+            particles: 11
+            particles2: 0
+            iterations: 0
+airtornado_ppj_fbomb:
+    spell-class: ".targeted.ForcebombSpell"
+    helper-spell: true
+    radius: 7
+    pushback-force: -6
+    additional-vertical-force: 5
+    max-vertical-force: 12
+    y-offset: 1
+airtornado_ppj_pain:
+    spell-class: ".targeted.PainSpell"
+    helper-spell: true
+    damage: 2
+### ~~ ###
+airtyphoon:
+    spell-class: ".MultiSpell"
+    cast-item: magma_cream
+    cooldown: 1
+    cost:
+        - mana 10
+    spells:
+        - airtyphoon_leap_1
+        - airtyphoon_aoe
+        - airtyphoon_tmusp_1
+        - DELAY 16
+        - airtyphoon_leap_2
+        - airtyphoon_aoe
+        - airtyphoon_tmusp_2
+airtyphoon_leap_1:
+    spell-class: ".instant.LeapSpell"
+    helper-spell: true
+    forward-velocity: 2
+    upward-velocity: 9
+    effects:
+      1_1:
+        effect: effectlibentity
+        position: caster
+        effectlib:
+            class: Sphere
+            iterations: 0
+            particle: redstone
+            color: fefefe
+            relativeOffset: 0,0,0
+            offset: 0,1,0
+            duration: 300
+            radius: 13
+            radius_increase: -1.5
+            particles: 25
+            orient-pitch: false
+            orient: true
+      1_2:
+        effect: effectlibentity
+        position: caster
+        effectlib:
+            class: Sphere
+            iterations: 0
+            particle: sweep_attack
+            color: fefefe
+            relativeOffset: 0,0,0
+            offset: 0,1,0
+            duration: 300
+            radius: 13
+            radius_increase: -1.5
+            particles: 5
+            orient-pitch: false
+            orient: true
+      1_3:
+        effect: effectlibentity
+        position: caster
+        effectlib:
+            class: Sphere
+            iterations: 0
+            particle: cloud
+            color: fefefe
+            speed: 1
+            relativeOffset: 0,0,0
+            offset: 0,1,0
+            duration: 300
+            radius: 13
+            radius_increase: -1.5
+            particles: 5
+            orient-pitch: false
+            orient: true
+      2_1:
+        position: caster
+        effect: effectlib
+        effectlib:
+            class: Equation
+            particle: redstone
+            colors: ffffff
+            speed: 0
+            relativeOffset: 0,0,0
+            offset: 0,0,0
+            duration: 500
+            xEquation: 8sin(5t) - 2.35sin(5t)*0.005t + 0.4sin(t)
+            yEquation: 1.5sin(3t)
+            zEquation: 8cos(5t) - 2.35cos(5t)*0.005t + 0.4cos(t)
+            particles: 50
+            particles2: 0
+            iterations: 0
+            orientPitch: false
+      3_1:
+        position: caster
+        effect: sound
+        sound: entity.wither.shoot
+        pitch: 1.2
+        volume: 2
+airtyphoon_leap_2:
+    spell-class: ".instant.LeapSpell"
+    helper-spell: true
+    forward-velocity: 2
+    upward-velocity: -7
+    effects:
+      1_1:
+        effect: effectlibentity
+        position: caster
+        effectlib:
+            class: Sphere
+            iterations: 0
+            particle: redstone
+            color: fefefe
+            relativeOffset: 0,0,0
+            offset: 0,1,0
+            duration: 300
+            radius: 0
+            radius_increase: 1.5
+            particles: 25
+            orient-pitch: false
+            orient: true
+      1_2:
+        effect: effectlibentity
+        position: caster
+        effectlib:
+            class: Sphere
+            iterations: 0
+            particle: sweep_attack
+            color: fefefe
+            relativeOffset: 0,0,0
+            offset: 0,1,0
+            duration: 300
+            radius: 0
+            radius_increase: 1.5
+            particles: 5
+            orient-pitch: false
+            orient: true
+      1_3:
+        effect: effectlibentity
+        position: caster
+        effectlib:
+            class: Sphere
+            iterations: 0
+            particle: cloud
+            color: fefefe
+            speed: 1
+            relativeOffset: 0,0,0
+            offset: 0,1,0
+            duration: 300
+            radius: 0
+            radius_increase: 1.5
+            particles: 5
+            orient-pitch: false
+            orient: true
+      2_1:
+        position: caster
+        effect: effectlib
+        effectlib:
+            class: Equation
+            particle: redstone
+            colors: ffffff
+            speed: 0
+            relativeOffset: 0,0,0
+            offset: 0,-1.5,0
+            duration: 500
+            xEquation: 2.35sin(5t)*0.01t + 0.4sin(t)
+            yEquation: 1.5sin(3t)
+            zEquation: 2.35cos(5t)*0.01t + 0.4cos(t)
+            particles: 50
+            particles2: 0
+            iterations: 0
+            orientPitch: false
+      3_1:
+        position: caster
+        effect: sound
+        sound: entity.wither.shoot
+        pitch: 1.2
+        volume: 2
+airtyphoon_aoe:
+    spell-class: ".targeted.AreaEffectSpell"
+    helper-spell: true
+    horizontal-radius: 5
+    vertical-radius: 5
+    point-blank: true
+    fail-if-no-targets: false
+    spells:
+        - airtyphoon_aoe_pain
+airtyphoon_aoe_pain:
+    spell-class: ".targeted.PainSpell"
+    helper-spell: true
+    damage: 3
+    effects:
+      1_1:
+        position: target
+        effect: particles
+        particle-name: sweep_attack
+        horiz-spread: 3
+        vert-spread: 3
+        speed: 0
+        count: 15
+        height-offset: 1
+      1_2:
+        position: target
+        effect: particles
+        particle-name: poof
+        horiz-spread: 3
+        vert-spread: 3
+        speed: 0.15
+        count: 32
+        height-offset: 1
+      1_3:
+        position: target
+        effect: particles
+        particle-name: effect
+        horiz-spread: 3
+        vert-spread: 3
+        speed: 0
+        count: 25
+        height-offset: 1
+      1_4:
+        position: target
+        effect: particles
+        particle-name: white_ash
+        horiz-spread: 3
+        vert-spread: 3
+        speed: 10
+        count: 35
+        height-offset: 1
+airtyphoon_tmusp_1:
+    spell-class: ".TargetedMultiSpell"
+    helper-spell: true
+    stop-on-fail: false
+    point-blank: true
+    spells:
+        - airtyphoon_tmusp_1_fbomb
+airtyphoon_tmusp_1_fbomb:
+    spell-class: ".targeted.ForcebombSpell"
+    helper-spell: true
+    radius: 12
+    pushback-force: -14
+    additional-vertical-force: 9
+    max-vertical-force: 12
+    y-offset: 3
+airtyphoon_tmusp_2:
+    spell-class: ".TargetedMultiSpell"
+    helper-spell: true
+    point-blank: true
+    stop-on-fail: false
+    spells:
+        - airtyphoon_tmusp_2_fbomb
+airtyphoon_tmusp_2_fbomb:
+    spell-class: ".targeted.ForcebombSpell"
+    helper-spell: true
+    radius: 9
+    pushback-force: 27
+    additional-vertical-force: 5
+    max-vertical-force: 12
+    y-offset: -2.5
+### ~~ ###
+airslash:
+    spell-class: ".MultiSpell"
+    cast-item: magma_cream
+    cooldown: 1
+    cost:
+        - mana 10
+    spells:
+        - airslash_leap
+        - airslash_ppj
+    effects:
+      1_1:
+        position: caster
+        effect: sound
+        sound: entity.wither.shoot
+        pitch: 1.2
+        volume: 2
+airslash_leap:
+    spell-class: ".instant.LeapSpell"
+    helper-spell: true
+    forward-velocity: -3
+    upward-velocity: 1
+airslash_ppj:
+    spell-class: ".instant.ParticleProjectileSpell"
+    helper-spell: true
+    relative-offset: 1,1,0
+    projectile-velocity: 45
+    projectile-vert-offset: 0
+    projectile-horiz-offset: 0
+    projectile-gravity: 0
+    projectile-spread: 0
+    tick-interval: 1
+    spell-interval: 1
+    special-effect-interval: 2
+    particle-name: blockcrack_0_0
+    max-distance: 25
+    hit-ground: true
+    hit-players: true
+    hit-non-players: true
+    hit-air-during: false
+    hit-air-at-end: false
+    hit-radius: 3
+    stop-on-hit-entity: false
+    stop-on-hit-ground: true
+    spell-on-hit-entity: airslash_ppj_pain
+    spell: dummy
+    effects:
+      1_1:
+        position: special
+        effect: particles
+        particle-name: sweep_attack
+        horiz-spread: 1
+        vert-spread: 1
+        speed: 0
+        count: 1
+      1_2:
+        position: special
+        effect: particles
+        particle-name: poof
+        horiz-spread: 1
+        vert-spread: 1
+        speed: 0.15
+        count: 3
+      1_3:
+        position: special
+        effect: particles
+        particle-name: effect
+        horiz-spread: 1
+        vert-spread: 1
+        speed: 0
+        count: 2
+      1_4:
+        position: special
+        effect: particles
+        particle-name: white_ash
+        horiz-spread: 1
+        vert-spread: 1
+        speed: 10
+        count: 12
+      1_5:
+        position: special
+        effect: effectlib
+        effectlib:
+            class: Equation
+            particle: redstone
+            colors: ffffff
+            speed: 0
+            relativeOffset: 0,0,0
+            offset: 0,0,0
+            duration: 0
+            xEquation: 2sin(0.1t)
+            yEquation: 0
+            zEquation: 2cos(0.1t)
+            particles: 33
+            x2Equation: 0.06t2
+            y2Equation: 0
+            z2Equation: 0
+            particles2: 6
+            iterations: 0
+            orientPitch: true
+airslash_ppj_pain:
+    spell-class: ".targeted.PainSpell"
+    helper-spell: true
+    damage: 3

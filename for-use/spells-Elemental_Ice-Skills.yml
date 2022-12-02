@@ -1,0 +1,379 @@
+# made by @iamDvz#2005
+# СТРОКИ/ROWS 15, 169, 287 ОТКАТ / COOLDOWNS
+# СТРОКИ/ROWS 155, 378 УРОН / DAMAGE
+# СТРОКИ/ROWS 17, 171, 289 ПОТРЕБЛЕНИЕ МАНЫ / COST OF MANA
+# СТРОКА/ROW 272, 278 ДЛИТЕЛЬНОСТЬ СТАНА И ЗАМЕДЛЕНИЯ / STUN & SLOWNESS DURATION
+#
+#
+#
+#
+#
+#
+icespikes:
+    spell-class: ".MultiSpell"
+    cast-item: magma_cream
+    cooldown: 1
+    cost:
+        - mana 10
+    spells:
+        - icespikes_leap
+        - icespikes_ppj
+icespikes_leap:
+    spell-class: ".instant.LeapSpell"
+    helper-spell: true
+    forward-velocity: -5
+    upward-velocity: 1
+icespikes_ppj:
+    spell-class: ".instant.ParticleProjectileSpell"
+    helper-spell: true
+    relative-offset: 0,0,0
+    projectile-velocity: 15
+    projectile-vert-offset: 0
+    projectile-horiz-offset: 0
+    projectile-gravity: 0
+    projectile-spread: 0
+    tick-interval: 1
+    spell-interval: 1
+    special-effect-interval: 1
+    particle-name: blockcrack_0_0
+    max-distance: 15
+    hit-ground: false
+    hit-players: false
+    hit-non-players: false
+    hit-air-during: true
+    hit-air-at-end: false
+    hit-radius: 1
+    stop-on-hit-entity: false
+    stop-on-hit-ground: false
+    hug-surface: true
+    spell-on-tick: icespikes_ppj_tmusp
+    spell: dummy
+    effects:
+      1_1:
+        position: special
+        effect: sound
+        sound: block.glass.break
+        pitch: 1.25
+        volume: 2
+icespikes_ppj_tmusp:
+    spell-class: ".TargetedMultiSpell"
+    helper-spell: true
+    stop-on-fail: false
+    cast-random-spell-instead: true
+    spells:
+        - icespikes_ppj_tmusp_ppj_1
+        - icespikes_ppj_tmusp_ppj_2
+        - icespikes_ppj_tmusp_ppj_3
+        - icespikes_ppj_tmusp_ppj_4
+        - icespikes_ppj_tmusp_ppj_5
+        - icespikes_ppj_tmusp_ppj_6
+        - icespikes_ppj_tmusp_ppj_7
+        - icespikes_ppj_tmusp_ppj_8
+        - icespikes_ppj_tmusp_ppj_9
+icespikes_ppj_tmusp_ppj_base: &icespikes_ppj_tmusp_ppj_base_copy
+    spell-class: ".instant.ParticleProjectileSpell"
+    helper-spell: true
+    relative-offset: 0,0,0
+    projectile-velocity: 10
+    projectile-vert-offset: 3
+    projectile-horiz-offset: 0
+    projectile-gravity: 0
+    projectile-spread: 0.5
+    tick-interval: 1
+    spell-interval: 1
+    special-effect-interval: 1
+    particle-name: blockcrack_0_0
+    max-distance: 7
+    hit-ground: true
+    hit-players: true
+    hit-non-players: true
+    hit-air-during: true
+    hit-air-at-end: true
+    hit-radius: 2
+    stop-on-hit-entity: false
+    stop-on-hit-ground: true
+    spell-on-hit-entity: icespikes_ppj_tmusp_ppj_base_toss
+    spell: dummy
+    effects:
+      1_1:
+        position: special
+        effect: particles
+        particle-name: dust
+        color: 8f93ff
+        horiz-spread: 0.5
+        vert-spread: 0.5
+        speed: 0
+        count: 4
+      1_2:
+        position: special
+        effect: particles
+        particle-name: dust
+        color: a4d0fc
+        horiz-spread: 0.5
+        vert-spread: 0.5
+        speed: 0
+        count: 4
+      1_3:
+        position: special
+        effect: particles
+        particle-name: block
+        material: ice
+        horiz-spread: 0.5
+        vert-spread: 0.5
+        speed: 0
+        count: 4
+      1_5:
+        position: special
+        effect: particles
+        particle-name: sweep_attack
+        horiz-spread: 0.5
+        vert-spread: 0.5
+        speed: 0
+        count: 1
+        chance: 10
+      1_6:
+        position: special
+        effect: sound
+        sound: entity.wither.shoot
+        pitch: 1.2
+        volume: 2
+        chance: 10
+      2_1:
+        position: special
+        effect: nova
+        types: [ice, ice, ice, light_blue_stained_glass]
+        expand-interval: 60
+        radius: 0
+        start-radius: 0
+        range: 1000
+        height-offset: 1
+icespikes_ppj_tmusp_ppj_base_toss:
+    spell-class: ".targeted.ForcetossSpell"
+    helper-spell: true
+    horizontal-force: 3
+    vertical-force: 9
+    damage: 3
+icespikes_ppj_tmusp_ppj_1: {<<: *icespikes_ppj_tmusp_ppj_base_copy, relative-offset: "0,-1,-4"}
+icespikes_ppj_tmusp_ppj_2: {<<: *icespikes_ppj_tmusp_ppj_base_copy, relative-offset: "0,-1,-3"}
+icespikes_ppj_tmusp_ppj_3: {<<: *icespikes_ppj_tmusp_ppj_base_copy, relative-offset: "0,-1,-2"}
+icespikes_ppj_tmusp_ppj_4: {<<: *icespikes_ppj_tmusp_ppj_base_copy, relative-offset: "0,-1,-1"}
+icespikes_ppj_tmusp_ppj_5: {<<: *icespikes_ppj_tmusp_ppj_base_copy, relative-offset: "0,-1,0"}
+icespikes_ppj_tmusp_ppj_6: {<<: *icespikes_ppj_tmusp_ppj_base_copy, relative-offset: "0,-1,1"}
+icespikes_ppj_tmusp_ppj_7: {<<: *icespikes_ppj_tmusp_ppj_base_copy, relative-offset: "0,-1,2"}
+icespikes_ppj_tmusp_ppj_8: {<<: *icespikes_ppj_tmusp_ppj_base_copy, relative-offset: "0,-1,3"}
+icespikes_ppj_tmusp_ppj_9: {<<: *icespikes_ppj_tmusp_ppj_base_copy, relative-offset: "0,-1,4"}
+### ~~ ###
+icerose:
+    spell-class: ".MultiSpell"
+    cast-item: magma_cream
+    cooldown: 1
+    cost:
+        - mana 10
+    spells:
+        - icerose_leap
+        - icerose_aoe
+icerose_leap:
+    spell-class: ".instant.LeapSpell"
+    helper-spell: true
+    forward-velocity: 2
+    upward-velocity: 1
+    effects:
+      1_1:
+        position: caster
+        effect: effectlib
+        effectlib:
+            class: Equation
+            particle: redstone
+            colors: b8fffb
+            speed: 0
+            relativeOffset: 0,0,0
+            offset: 0,0.1,0
+            duration: 250
+            xEquation: 2.35sin(5t)*0.01t + 0.4sin(t)
+            yEquation: 0
+            zEquation: 2.35cos(5t)*0.01t + 0.4cos(t)
+            particles: 50
+            particles2: 0
+            iterations: 0
+            orientPitch: false
+      1_2:
+        position: caster
+        effect: effectlib
+        effectlib:
+            class: Equation
+            particle: redstone
+            colors: a4d0fc
+            speed: 0
+            relativeOffset: 0,0,0
+            offset: 0,0.1,0
+            duration: 1000
+            xEquation: 2.35sin(t) - 2.35sin(12t)
+            yEquation: 0
+            zEquation: 2.35cos(t) - 2.35cos(12t)
+            particles: 50
+            particles2: 0
+            iterations: 0
+            orientPitch: false
+icerose_aoe:
+    spell-class: ".targeted.AreaEffectSpell"
+    helper-spell: true
+    horizontal-radius: 6
+    vertical-radius: 6
+    point-blank: true
+    fail-if-no-targets: false
+    spells:
+        - icerose_aoe_stun
+        - icerose_aoe_potion
+    effects:
+      1_1:
+        position: special
+        effect: particles
+        particle-name: dust
+        color: 8f93ff
+        horiz-spread: 3
+        vert-spread: 3
+        speed: 0
+        count: 45
+      1_2:
+        position: special
+        effect: particles
+        particle-name: dust
+        color: a4d0fc
+        horiz-spread: 3
+        vert-spread: 3
+        speed: 0
+        count: 45
+      1_3:
+        position: special
+        effect: particles
+        particle-name: block
+        material: ice
+        horiz-spread: 3
+        vert-spread: 3
+        speed: 0
+        count: 45
+      1_5:
+        position: special
+        effect: particles
+        particle-name: sweep_attack
+        horiz-spread: 3
+        vert-spread: 3
+        speed: 0
+        count: 15
+      1_6:
+        position: special
+        effect: sound
+        sound: entity.wither.shoot
+        pitch: 1.2
+        volume: 2
+icerose_aoe_stun:
+    spell-class: ".targeted.StunSpell"
+    helper-spell: true
+    duration: 25
+    interval: 5
+icerose_aoe_potion:
+    spell-class: ".targeted.PotionEffectSpell"
+    helper-spell: true
+    type: slowness
+    duration: 100
+    strength: 0
+    targeted: true
+    ambient: false
+    hidden: true
+### ~~ ###
+icecharge:
+    spell-class: ".MultiSpell"
+    cast-item: magma_cream
+    cooldown: 1
+    cost:
+        - mana 10
+    spells:
+        - icecharge_leap
+        - icecharge_ppj
+icecharge_leap:
+    spell-class: ".instant.LeapSpell"
+    helper-spell: true
+    forward-velocity: -3
+    upward-velocity: 1
+icecharge_ppj:
+    spell-class: ".instant.ParticleProjectileSpell"
+    helper-spell: true
+    relative-offset: 1,1,0
+    projectile-velocity: 30
+    projectile-vert-offset: 0
+    projectile-horiz-offset: 0
+    projectile-gravity: 0
+    projectile-spread: 0
+    tick-interval: 1
+    spell-interval: 1
+    special-effect-interval: 1
+    particle-name: blockcrack_0_0
+    max-distance: 35
+    hit-ground: true
+    hit-players: true
+    hit-non-players: true
+    hit-air-during: false
+    hit-air-at-end: false
+    hit-radius: 1.2
+    stop-on-hit-entity: true
+    stop-on-hit-ground: true
+    spell-on-hit-entity: icecharge_ppj_pain
+    spell: dummy
+    effects:
+      1_1:
+        position: special
+        effect: particles
+        particle-name: dust
+        color: 8f93ff
+        horiz-spread: 0.5
+        vert-spread: 0.5
+        speed: 0
+        count: 2
+      1_2:
+        position: special
+        effect: particles
+        particle-name: dust
+        color: a4d0fc
+        horiz-spread: 0.5
+        vert-spread: 0.5
+        speed: 0
+        count: 2
+      1_3:
+        position: special
+        effect: particles
+        particle-name: block
+        material: ice
+        horiz-spread: 0.5
+        vert-spread: 0.5
+        speed: 0
+        count: 2
+      1_5:
+        position: special
+        effect: particles
+        particle-name: sweep_attack
+        horiz-spread: 0.5
+        vert-spread: 0.5
+        speed: 0
+        count: 1
+        chance: 10
+      1_6:
+        position: special
+        effect: sound
+        sound: entity.wither.shoot
+        pitch: 1.2
+        volume: 2
+        chance: 10
+      2_1:
+        position: special
+        effect: nova
+        type: ice
+        expand-interval: 1
+        radius: 0
+        start-radius: 0
+        range: 1000
+        height-offset: 1
+icecharge_ppj_pain:
+    spell-class: ".targeted.PainSpell"
+    helper-spell: true
+    damage: 3
+    ignore-armor: true

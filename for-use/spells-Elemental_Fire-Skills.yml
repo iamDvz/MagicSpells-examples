@@ -324,6 +324,11 @@ firewall:
         pitch: 1.2
         volume: 2
         delay: 05
+firewall_leap:
+    spell-class: ".instant.LeapSpell"
+    helper-spell: true
+    forward-velocity: -1
+    upward-velocity: 1
 firewall_buff:
     spell-class: ".buff.DummySpell"
     helper-spell: true

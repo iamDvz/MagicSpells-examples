@@ -1,0 +1,866 @@
+# made by @iamDvz#2005
+# СТРОКИ/ROWS 391, 601, 694 ОТКАТ / COOLDOWNS
+# СТРОКИ/ROWS 187, 563, 837 УРОН / DAMAGE
+# СТРОКИ/ROWS 615, 667, 676, 685 ДЛЯ ИЗМЕНЕНИЯ ДЛИТЕЛЬНОСТИ БАФФА / FOR BUFF DURATION CHANGE
+# /ms magicitem swordsman_sword ДЛЯ ПРЕДМЕТА / FOR ITEM
+#
+#
+#
+#
+#
+#
+magic-items:
+    swordsman_sword: {type: iron_sword, name: "&f&lSwordsman", hide-tooltip: true, unbreakable: true, lore: [
+     "",
+     "&7 ➣ Class: &f&lSwordsman",
+     "",
+     "&7 ➣ LC &8&l— &f&lSlash",
+     "&7 ➣ RC &8&l— &f&lRage",
+     "",
+     "&7 ➣ SHIFT &f+ &7LC &8&l— &f&lThrust",
+     "&7 ➣ SHIFT &f+ &7RC &8&l— &f&lFast slash",
+     ]}
+### ~~ ###
+swordsman_leftсlick:
+    spell-class: ".instant.DummySpell"
+    cast-item: swordsman_sword
+    modifiers:
+        - chance 100 cast swordsman_leftclick_notshift(mode=FULL)
+        - chance 100 cast swordsman_leftclick_shift(mode=FULL)
+### ~~ ###
+swordsman_leftclick_notshift:
+    spell-class: ".MultiSpell"
+    helper-spell: true
+    cooldown: 0.25
+    modifiers:
+        - sneaking denied
+    spells:
+        - swordsman_leftclick_notshift_leap_1
+        - DELAY 03
+        - swordsman_leftclick_notshift_leap_2
+        - DELAY 01
+        - swordsman_leftclick_notshift_musp
+    effects:
+      1_1:
+        position: caster
+        effect: particles
+        particle-name: sweep_attack
+        horiz-spread: 1
+        vert-spread: 1
+        speed: 0
+        count: 3
+        height-offset: 1
+      1_2:
+        position: caster
+        effect: particles
+        particle-name: poof
+        horiz-spread: 1
+        vert-spread: 1
+        speed: 0.15
+        count: 1
+        height-offset: 1
+      1_3:
+        position: caster
+        effect: particles
+        particle-name: effect
+        horiz-spread: 1
+        vert-spread: 1
+        speed: 0
+        count: 3
+        height-offset: 1
+      1_4:
+        position: caster
+        effect: particles
+        particle-name: white_ash
+        horiz-spread: 1
+        vert-spread: 1
+        speed: 10
+        count: 3
+        height-offset: 1
+      1_5:
+        position: caster
+        effect: sound
+        sound: entity.wither.shoot
+        pitch: 1.2
+        volume: 2
+      1_6:
+        position: caster
+        effect: sound
+        sound: item.trident.throw
+        pitch: 1
+        volume: 2
+swordsman_leftclick_notshift_leap_1:
+    spell-class: ".instant.LeapSpell"
+    helper-spell: true
+    forward-velocity: -3
+    upward-velocity: 1
+swordsman_leftclick_notshift_leap_2:
+    spell-class: ".instant.LeapSpell"
+    helper-spell: true
+    forward-velocity: 2
+    upward-velocity: 1
+swordsman_leftclick_notshift_musp:
+    spell-class: ".MultiSpell"
+    helper-spell: true
+    spells:
+        - swordsman_leftclick_notshift_musp_musp_3(mode=FULL)
+        - swordsman_leftclick_notshift_musp_musp_2(mode=FULL)
+        - swordsman_leftclick_notshift_musp_musp_1(mode=FULL)
+swordsman_leftclick_notshift_musp_musp_1:
+    spell-class: ".MultiSpell"
+    helper-spell: true
+    modifiers:
+        - buffactive swordsman_leftclick_notshift_musp_musp_1_buff denied
+        - buffactive swordsman_leftclick_notshift_musp_musp_2_buff denied
+        - buffactive swordsman_leftclick_notshift_musp_musp_3_buff denied
+    spells:
+        - swordsman_leftclick_notshift_musp_musp_1_aoe
+        - swordsman_leftclick_notshift_musp_musp_1_buff
+swordsman_leftclick_notshift_musp_musp_1_aoe:
+    spell-class: ".targeted.AreaEffectSpell"
+    helper-spell: true
+    horizontal-radius: 4
+    vertical-radius: 2
+    cone: 140
+    point-blank: true
+    fail-if-no-targets: false
+    spells:
+        - swordsman_leftclick_notshift_musp_musp_aoe_pain
+    effects:
+      1_1:
+        position: caster
+        effect: effectlib
+        effectlib:
+            class: Equation
+            particle: redstone
+            colors: dbdbdb
+            speed: 0
+            relativeOffset: 0.5,0,0
+            offset: 0,1,0
+            duration: 250
+            xEquation: 2.5sin(0.05t)
+            yEquation: 1.5cos(0.05t) + 0.3cos(0.5t)
+            zEquation: 2.5cos(0.05t)
+            particles: 13
+            particles2: 0
+            iterations: 0
+            orientPitch: false
+      1_2:
+        position: caster
+        effect: effectlib
+        effectlib:
+            class: Equation
+            particle: redstone
+            colors: c2c2c2
+            speed: 0
+            relativeOffset: 0.5,0,0
+            offset: 0,1,0
+            duration: 250
+            xEquation: 2.4sin(0.05t) + 0.3
+            yEquation: 1cos(0.05t)
+            zEquation: 2.4cos(0.05t) + 0.34
+            particles: 11
+            particles2: 0
+            iterations: 0
+            orientPitch: false
+      1_3:
+        position: caster
+        effect: effectlib
+        effectlib:
+            class: Equation
+            particle: redstone
+            colors: cff3ff
+            speed: 0
+            relativeOffset: 0.5,0,0
+            offset: 0,1,0
+            duration: 250
+            xEquation: 2.4sin(0.05t) + 0.3cos(0.25t)
+            yEquation: 1cos(0.05t) + 0.3cos(0.25t)
+            zEquation: 2.4cos(0.05t)
+            particles: 11
+            particles2: 0
+            iterations: 0
+            orientPitch: false
+swordsman_leftclick_notshift_musp_musp_aoe_pain:
+    spell-class: ".targeted.PainSpell"
+    helper-spell: true
+    damage: 3
+    effects:
+      1_1:
+        position: target
+        effect: particles
+        particle-name: sweep_attack
+        horiz-spread: 0.5
+        vert-spread: 0.5
+        speed: 0
+        count: 3
+        height-offset: 1
+      1_2:
+        position: target
+        effect: particles
+        particle-name: block
+        material: redstone_block
+        horiz-spread: 0.5
+        vert-spread: 0.5
+        speed: 0
+        count: 6
+        height-offset: 1
+      1_3:
+        position: target
+        effect: particles
+        particle-name: dust
+        horiz-spread: 0.5
+        vert-spread: 0.5
+        speed: 0
+        count: 6
+        height-offset: 1
+swordsman_leftclick_notshift_musp_musp_1_buff:
+    spell-class: ".buff.DummySpell"
+    helper-spell: true
+    duration: 2
+    toggle: false
+swordsman_leftclick_notshift_musp_musp_2:
+    spell-class: ".MultiSpell"
+    helper-spell: true
+    modifiers:
+        - buffactive swordsman_leftclick_notshift_musp_musp_1_buff required
+        - buffactive swordsman_leftclick_notshift_musp_musp_2_buff denied
+    spells:
+        - swordsman_leftclick_notshift_musp_musp_2_aoe
+        - swordsman_leftclick_notshift_musp_musp_2_buff
+swordsman_leftclick_notshift_musp_musp_2_aoe:
+    spell-class: ".targeted.AreaEffectSpell"
+    helper-spell: true
+    horizontal-radius: 4
+    vertical-radius: 2
+    cone: 140
+    point-blank: true
+    fail-if-no-targets: false
+    spells:
+        - swordsman_leftclick_notshift_musp_musp_aoe_pain
+    effects:
+      1_1:
+        position: caster
+        effect: effectlib
+        effectlib:
+            class: Equation
+            particle: redstone
+            colors: dbdbdb
+            speed: 0
+            relativeOffset: 0.5,0,0
+            offset: 0,1,0
+            duration: 250
+            xEquation: 2.5sin(0.05t)
+            yEquation: 1.5cos(0.05t) + 0.3cos(0.5t)
+            zEquation: -2.5cos(0.05t)
+            particles: 13
+            particles2: 0
+            iterations: 0
+            orientPitch: false
+      1_2:
+        position: caster
+        effect: effectlib
+        effectlib:
+            class: Equation
+            particle: redstone
+            colors: c2c2c2
+            speed: 0
+            relativeOffset: 0.5,0,0
+            offset: 0,1,0
+            duration: 250
+            xEquation: 2.4sin(0.05t) + 0.3
+            yEquation: 1cos(0.05t)
+            zEquation: -2.4cos(0.05t) + 0.34
+            particles: 11
+            particles2: 0
+            iterations: 0
+            orientPitch: false
+      1_3:
+        position: caster
+        effect: effectlib
+        effectlib:
+            class: Equation
+            particle: redstone
+            colors: cff3ff
+            speed: 0
+            relativeOffset: 0.5,0,0
+            offset: 0,1,0
+            duration: 250
+            xEquation: 2.4sin(0.05t) + 0.3cos(0.25t)
+            yEquation: 1cos(0.05t) + 0.3cos(0.25t)
+            zEquation: -2.4cos(0.05t)
+            particles: 11
+            particles2: 0
+            iterations: 0
+            orientPitch: false
+swordsman_leftclick_notshift_musp_musp_2_buff:
+    spell-class: ".buff.DummySpell"
+    helper-spell: true
+    duration: 2
+    toggle: false
+swordsman_leftclick_notshift_musp_musp_3:
+    spell-class: ".MultiSpell"
+    helper-spell: true
+    modifiers:
+        - buffactive swordsman_leftclick_notshift_musp_musp_2_buff required
+    spells:
+        - swordsman_leftclick_notshift_musp_musp_3_aoe
+        - swordsman_leftclick_notshift_musp_musp_3_buff
+        - swordsman_leftclick_notshift_musp_musp_3_cleanse
+swordsman_leftclick_notshift_musp_musp_3_aoe:
+    spell-class: ".targeted.AreaEffectSpell"
+    helper-spell: true
+    horizontal-radius: 6
+    vertical-radius: 2
+    cone: 90
+    point-blank: true
+    fail-if-no-targets: false
+    spells:
+        - swordsman_leftclick_notshift_musp_musp_aoe_pain
+    effects:
+      1_1:
+        position: caster
+        effect: effectlib
+        effectlib:
+            class: Equation
+            particle: redstone
+            colors: dbdbdb
+            speed: 0
+            relativeOffset: 0.5,0,0
+            offset: 0,1,0
+            duration: 250
+            xEquation: 0.1t
+            yEquation: -0.7cos(0.1t)/(0.1t+3) + 0.3cos(0.25t)
+            zEquation: 1.5sin(0.1t)/(0.1t+3) + 0.3sin(0.25t)
+            particles: 16
+            particles2: 0
+            iterations: 0
+            orientPitch: false
+      1_2:
+        position: caster
+        effect: effectlib
+        effectlib:
+            class: Equation
+            particle: redstone
+            colors: c2c2c2
+            speed: 0
+            relativeOffset: 0.5,0,0
+            offset: 0,1,0
+            duration: 250
+            xEquation: 0.1t
+            yEquation: 1.7cos(0.1t)/(0.3t+3) + 0.1cos(0.1t)
+            zEquation: -1.5sin(0.1t)/(0.1t+3) + 0.3sin(0.25t)
+            particles: 13
+            particles2: 0
+            iterations: 0
+            orientPitch: false
+      1_3:
+        position: caster
+        effect: effectlib
+        effectlib:
+            class: Equation
+            particle: redstone
+            colors: cff3ff
+            speed: 0
+            relativeOffset: 0.5,0,0
+            offset: 0,1,0
+            duration: 250
+            xEquation: 0.12t
+            yEquation: 0.25cos(0.1t)/(0.3t+3) + 0.1cos(0.1t)
+            zEquation: -0.25sin(0.1t)/(0.1t+3) + 0.1sin(0.25t)
+            particles: 16
+            particles2: 0
+            iterations: 0
+            orientPitch: false
+swordsman_leftclick_notshift_musp_musp_3_buff:
+    spell-class: ".buff.DummySpell"
+    helper-spell: true
+    duration: 0.1
+    toggle: false
+swordsman_leftclick_notshift_musp_musp_3_cleanse:
+    spell-class: ".targeted.CleanseSpell"
+    helper-spell: true
+    target-self: true
+    remove:
+        - buff:swordsman_leftclick_notshift_musp_musp_1_buff
+        - buff:swordsman_leftclick_notshift_musp_musp_2_buff
+### ~~ ###
+swordsman_leftclick_shift:
+    spell-class: ".MultiSpell"
+    helper-spell: true
+    cooldown: 1
+    modifiers:
+        - sneaking required
+    spells:
+        - swordsman_leftclick_shift_leap_1
+        - DELAY 07
+        - swordsman_leftclick_shift_leap_2
+        - DELAY 05
+        - swordsman_leftclick_shift_aoe
+swordsman_leftclick_shift_leap_1:
+    spell-class: ".instant.LeapSpell"
+    helper-spell: true
+    forward-velocity: -15
+    upward-velocity: 4
+swordsman_leftclick_shift_leap_2:
+    spell-class: ".instant.LeapSpell"
+    helper-spell: true
+    forward-velocity: 20
+    upward-velocity: -2
+    effects:
+      1_1:
+        position: caster
+        effect: effectlib
+        effectlib:
+            class: Equation
+            particle: redstone
+            colors: ffde8a
+            speed: 0
+            relativeOffset: 0.5,0,0
+            offset: 0,1,0
+            duration: 300
+            xEquation: 0.1t
+            yEquation: -0.7cos(0.1t)/(0.1t) + 0.3cos(0.25t) - 0.02t
+            zEquation: 1.5sin(0.1t)/(0.1t) + 0.3sin(0.25t)
+            particles: 13
+            particles2: 0
+            iterations: 0
+            orientPitch: false
+      1_2:
+        position: caster
+        effect: effectlib
+        effectlib:
+            class: Equation
+            particle: redstone
+            colors: ffe7a8
+            speed: 0
+            relativeOffset: 0.5,0,0
+            offset: 0,1,0
+            duration: 300
+            xEquation: 0.1t
+            yEquation: 2.5cos(0.1t)/(0.3t+3) - 0.02t
+            zEquation: -2.5sin(0.1t)/(0.1t+3)
+            particles: 13
+            particles2: 0
+            iterations: 0
+            orientPitch: false
+      1_3:
+        position: caster
+        effect: effectlib
+        effectlib:
+            class: Equation
+            particle: redstone
+            colors: ffdba8
+            speed: 0
+            relativeOffset: 0.5,0,0
+            offset: 0,1,0
+            duration: 400
+            xEquation: 0.1t
+            yEquation: -1.5cos(0.1t)*0.2cos(0.15t) - 0.02t
+            zEquation: 1.5sin(0.1t)*0.2sin(0.15t)
+            particles: 13
+            particles2: 0
+            iterations: 0
+            orientPitch: false
+      1_4:
+        position: caster
+        effect: effectlib
+        effectlib:
+            class: Equation
+            particle: redstone
+            colors: ff977a
+            speed: 0
+            relativeOffset: 0.5,0,0
+            offset: 0,1,0
+            duration: 400
+            xEquation: 0.1t
+            yEquation: -1.5cos(0.1t) + 0.1cos(2t) - 0.02t
+            zEquation: 1.5sin(0.1t) + 0.1sin(2t)
+            particles: 13
+            particles2: 0
+            iterations: 0
+            orientPitch: false
+swordsman_leftclick_shift_aoe:
+    spell-class: ".targeted.AreaEffectSpell"
+    helper-spell: true
+    horizontal-radius: 6
+    vertical-radius: 2
+    cone: 90
+    point-blank: true
+    fail-if-no-targets: false
+    spells:
+        - swordsman_leftclick_shift_aoe_pain
+    effects:
+      1_1:
+        position: caster
+        effect: effectlib
+        effectlib:
+            class: Equation
+            particle: redstone
+            colors: 96fab1
+            speed: 0
+            relativeOffset: 0.5,0,0
+            offset: 0,1,0
+            duration: 250
+            xEquation: 0.1t
+            yEquation: -0.7cos(0.1t)/(0.1t+3) + 0.3cos(0.25t)
+            zEquation: 1.5sin(0.1t)/(0.1t+3) + 0.3sin(0.25t)
+            particles: 16
+            particles2: 0
+            iterations: 0
+            orientPitch: false
+      1_2:
+        position: caster
+        effect: effectlib
+        effectlib:
+            class: Equation
+            particle: redstone
+            colors: e0ffe9
+            speed: 0
+            relativeOffset: 0.5,0,0
+            offset: 0,1,0
+            duration: 250
+            xEquation: 0.1t
+            yEquation: 1.7cos(0.1t)/(0.3t+3) + 0.1cos(0.1t)
+            zEquation: -1.5sin(0.1t)/(0.1t+3) + 0.3sin(0.25t)
+            particles: 13
+            particles2: 0
+            iterations: 0
+            orientPitch: false
+      1_3:
+        position: caster
+        effect: effectlib
+        effectlib:
+            class: Equation
+            particle: redstone
+            colors: f8ffe0
+            speed: 0
+            relativeOffset: 0.5,0,0
+            offset: 0,1,0
+            duration: 250
+            xEquation: 0.12t
+            yEquation: 0.25cos(0.1t)/(0.3t+3) + 0.1cos(0.1t)
+            zEquation: -0.25sin(0.1t)/(0.1t+3) + 0.1sin(0.25t)
+            particles: 16
+            particles2: 0
+            iterations: 0
+            orientPitch: false
+      1_4:
+        position: caster
+        effect: sound
+        sound: entity.wither.shoot
+        pitch: 1.2
+        volume: 2
+      1_5:
+        position: caster
+        effect: sound
+        sound: item.trident.throw
+        pitch: 1
+        volume: 2
+swordsman_leftclick_shift_aoe_pain:
+    spell-class: ".targeted.PainSpell"
+    helper-spell: true
+    damage: 3
+    effects:
+      1_1:
+        position: target
+        effect: particles
+        particle-name: sweep_attack
+        horiz-spread: 0.5
+        vert-spread: 0.5
+        speed: 0
+        count: 3
+        height-offset: 1
+      1_2:
+        position: target
+        effect: particles
+        particle-name: block
+        material: redstone_block
+        horiz-spread: 0.5
+        vert-spread: 0.5
+        speed: 0
+        count: 6
+        height-offset: 1
+      1_3:
+        position: target
+        effect: particles
+        particle-name: dust
+        horiz-spread: 0.5
+        vert-spread: 0.5
+        speed: 0
+        count: 6
+        height-offset: 1
+### ~~ ###
+swordsman_rightclick:
+    spell-class: ".instant.DummySpell"
+    right-click-cast-item: swordsman_sword
+    modifiers:
+        - chance 100 cast swordsman_rightclick_notshift(mode=FULL)
+        - chance 100 cast swordsman_rightclick_shift(mode=FULL)
+### ~~ ###
+swordsman_rightclick_notshift:
+    spell-class: ".MultiSpell"
+    helper-spell: true
+    cooldown: 15
+    modifiers:
+        - sneaking denied
+    spells:
+        - swordsman_rightclick_notshift_buff
+        - swordsman_rightclick_notshift_potion_1
+        - swordsman_rightclick_notshift_potion_2
+        - swordsman_rightclick_notshift_potion_3
+swordsman_rightclick_notshift_buff:
+    spell-class: ".buff.DummySpell"
+    helper-spell: true
+    duration: 10
+    toggle: false
+    effects:
+      1_1:
+        position: buff
+        effect: effectlibentity
+        effectlib:
+            class: Equation
+            particle: redstone
+            relativeOffset: 0,0,0
+            offset: 0,0,0
+            color: ff8469
+            duration: 1000
+            xEquation: sin(0.3t)
+            yEquation: 0.05t
+            zEquation: cos(0.3t)
+            particles: 3
+            particles2: 0
+            iterations: 0
+            orient: false
+      1_2:
+        position: buff
+        effect: particles
+        particle-name: sweep_attack
+        horiz-spread: 0.5
+        vert-spread: 0.5
+        speed: 0
+        count: 3
+        height-offset: 1
+      1_3:
+        position: buff
+        effect: particles
+        particle-name: block
+        material: redstone_block
+        horiz-spread: 0.5
+        vert-spread: 0.5
+        speed: 0
+        count: 6
+        height-offset: 1
+      1_4:
+        position: buff
+        effect: particles
+        particle-name: dust
+        horiz-spread: 0.5
+        vert-spread: 0.5
+        speed: 0
+        count: 6
+        height-offset: 1
+swordsman_rightclick_notshift_potion_1:
+    spell-class: ".targeted.PotionEffectSpell"
+    helper-spell: true
+    type: speed
+    duration: 200
+    strength: 1
+    targeted: false
+    ambient: false
+    hidden: true
+swordsman_rightclick_notshift_potion_2:
+    spell-class: ".targeted.PotionEffectSpell"
+    helper-spell: true
+    type: resistance
+    duration: 200
+    strength: 1
+    targeted: false
+    ambient: false
+    hidden: true
+swordsman_rightclick_notshift_potion_3:
+    spell-class: ".targeted.PotionEffectSpell"
+    helper-spell: true
+    type: strength
+    duration: 200
+    strength: 0
+    targeted: false
+    ambient: false
+    hidden: true
+### ~~ ###
+swordsman_rightclick_shift:
+    spell-class: ".MultiSpell"
+    helper-spell: true
+    cooldown: 5
+    modifiers:
+        - sneaking required
+    spells:
+        - swordsman_rightclick_shift_leap_1
+        - DELAY 03
+        - swordsman_rightclick_shift_leap_2
+        - DELAY 01
+        - swordsman_rightclick_shift_aoe
+        - DELAY 01
+        - swordsman_rightclick_shift_leap_3
+    effects:
+      1_1:
+        position: caster
+        effect: particles
+        particle-name: sweep_attack
+        horiz-spread: 1
+        vert-spread: 1
+        speed: 0
+        count: 3
+        height-offset: 1
+      1_2:
+        position: caster
+        effect: particles
+        particle-name: poof
+        horiz-spread: 1
+        vert-spread: 1
+        speed: 0.15
+        count: 1
+        height-offset: 1
+      1_3:
+        position: caster
+        effect: particles
+        particle-name: effect
+        horiz-spread: 1
+        vert-spread: 1
+        speed: 0
+        count: 3
+        height-offset: 1
+      1_4:
+        position: caster
+        effect: particles
+        particle-name: white_ash
+        horiz-spread: 1
+        vert-spread: 1
+        speed: 10
+        count: 3
+        height-offset: 1
+      1_5:
+        position: caster
+        effect: sound
+        sound: entity.wither.shoot
+        pitch: 1.2
+        volume: 2
+      1_6:
+        position: caster
+        effect: sound
+        sound: item.trident.throw
+        pitch: 1
+        volume: 2
+swordsman_rightclick_shift_leap_1:
+    spell-class: ".instant.LeapSpell"
+    helper-spell: true
+    forward-velocity: -3
+    upward-velocity: 1
+swordsman_rightclick_shift_leap_2:
+    spell-class: ".instant.LeapSpell"
+    helper-spell: true
+    forward-velocity: 2
+    upward-velocity: 1
+swordsman_rightclick_shift_leap_3:
+    spell-class: ".instant.LeapSpell"
+    helper-spell: true
+    forward-velocity: -10
+    upward-velocity: 4
+swordsman_rightclick_shift_aoe:
+    spell-class: ".targeted.AreaEffectSpell"
+    helper-spell: true
+    horizontal-radius: 4
+    vertical-radius: 2
+    cone: 140
+    point-blank: true
+    fail-if-no-targets: false
+    spells:
+        - swordsman_rightclick_shift_aoe_pain
+    effects:
+      1_1:
+        position: caster
+        effect: effectlib
+        effectlib:
+            class: Equation
+            particle: redstone
+            colors: dbdbdb
+            speed: 0
+            relativeOffset: 0.5,0,0
+            offset: 0,1,0
+            duration: 125
+            xEquation: 2.5sin(0.05t)
+            yEquation: 0.25cos(0.05t) + 0.15cos(0.5t)
+            zEquation: -2.5cos(0.05t)
+            particles: 30
+            particles2: 0
+            iterations: 0
+            orientPitch: false
+      1_2:
+        position: caster
+        effect: effectlib
+        effectlib:
+            class: Equation
+            particle: redstone
+            colors: c2c2c2
+            speed: 0
+            relativeOffset: 0.5,0,0
+            offset: 0,1,0
+            duration: 125
+            xEquation: 2.4sin(0.05t) + 0.3
+            yEquation: 0.25cos(0.05t)
+            zEquation: -2.4cos(0.05t) + 0.34
+            particles: 26
+            particles2: 0
+            iterations: 0
+            orientPitch: false
+      1_3:
+        position: caster
+        effect: effectlib
+        effectlib:
+            class: Equation
+            particle: redstone
+            colors: cff3ff
+            speed: 0
+            relativeOffset: 0.5,0,0
+            offset: 0,1,0
+            duration: 125
+            xEquation: 2.4sin(0.05t) + 0.3cos(0.25t)
+            yEquation: 0.25cos(0.05t) + 0.15cos(0.25t)
+            zEquation: -2.4cos(0.05t)
+            particles: 26
+            particles2: 0
+            iterations: 0
+            orientPitch: false
+swordsman_rightclick_shift_aoe_pain:
+    spell-class: ".targeted.PainSpell"
+    helper-spell: true
+    damage: 3
+    effects:
+      1_1:
+        position: target
+        effect: particles
+        particle-name: sweep_attack
+        horiz-spread: 0.5
+        vert-spread: 0.5
+        speed: 0
+        count: 3
+        height-offset: 1
+      1_2:
+        position: target
+        effect: particles
+        particle-name: block
+        material: redstone_block
+        horiz-spread: 0.5
+        vert-spread: 0.5
+        speed: 0
+        count: 6
+        height-offset: 1
+      1_3:
+        position: target
+        effect: particles
+        particle-name: dust
+        horiz-spread: 0.5
+        vert-spread: 0.5
+        speed: 0
+        count: 6
+        height-offset: 1
